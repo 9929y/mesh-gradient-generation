@@ -1,9 +1,9 @@
 ---
-name: generate-mesh-gradient
+name: mesh-gradient-generation
 description: Generate and refine mesh gradients for presentations, web backgrounds and brand visuals, with palette selection and brand-design guidance. Use editable Figma layers or SVG/code routes for sky-inspired, dreamlike, flower-inspired, diffuse, heightmap and multipoint effects, including reference reconstruction.
 ---
 
-# Mesh Gradient Generation Skill
+# Mesh Gradient Generation
 
 Turn a visual reference into an explicit recipe, render it in a suitable tool,
 inspect the result, and adjust the parameter responsible for the mismatch.
