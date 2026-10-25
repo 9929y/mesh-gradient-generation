@@ -8,18 +8,43 @@ editable Figma workflows, with SVG and code-rendering alternatives.
 
 ## Samples / 效果样例
 
-Actual original Figma studies, not uploaded reference images. Flower shows a
-controlled 100 px blur variant; the guide includes the same composition at
-150 and 200 px. The JPEGs are flattened previews; recipes describe editable construction.
+Six newly designed native Figma studies, all **1536×1024 (3:2)**, using blue,
+apricot/orange and warm white. Flower uses magnified cropped planes (56–85% opacity, 125–160 px blur); Heightmap now extracts 40 levels from a warped multi-peak field. Multipoint uses
+eleven Gaussian-mask groups. The guide also compares the same Sky at
+100/150/200 px blur. Images are flattened previews; the native builder and
+recipes describe their editable construction.
 
-以下是原创 Figma 研究的实际导出。Flower 使用 100 px 受控变体；图解内有
-150 / 200 px 对照。JPEG 是预览图片，可编辑结构需按配方在设计工具里建立。
+六张均已重新在 Figma 绘制，统一为 **1536×1024（3:2）**，蓝色搭配杏橙和暖白。
+本轮重画 Sky 的宽色流、Dreamlike 的错位透光和 Flower 的花瓣局部。Flower 的四个瓣面不透明度为 56–85%，模糊 125–160 px；Heightmap 从多峰高度场提取 40 级等高区域。Multipoint 用十一组宽窄不同的色团形成流向。
+图解里另有同一张 Sky 的 100／150／200 px 对照。图片是预览，重建源码和配方
+说明如何保留可编辑图层。
 
-| Sky-inspired | Dreamlike | Flower-inspired |
+| Sky-inspired | Dreamlike |
+|---|---|
+| <img src="design/illustrations/sky-blue-orange.jpg" width="384" height="256" alt="Sky: blue and apricot"> | <img src="design/illustrations/dreamlike-blue-orange.jpg" width="384" height="256" alt="Dreamlike: blue and apricot"> |
+| Flower-inspired | Diffuse |
+| <img src="design/illustrations/flower-soft-blue-orange.jpg" width="384" height="256" alt="Flower: magnified cropped translucent planes"> | <img src="design/illustrations/diffuse-blue-orange.jpg" width="384" height="256" alt="Diffuse: blue mist and warm paper"> |
+| Heightmap | Multipoint |
+| <img src="design/illustrations/heightmap-soft-blue-orange.jpg" width="384" height="256" alt="Heightmap: multiple peaks, saddles and ridges"> | <img src="design/illustrations/multipoint-blue-orange.jpg" width="384" height="256" alt="Multipoint: eleven Gaussian fields"> |
+
+### How the samples are made / 样例如何制作
+
+| Sample / 效果 | Native construction / 原生做法 | At 1536×1024 / 本图参数 |
 |---|---|---|
-| ![Sky](design/illustrations/sky.jpg) | ![Dreamlike](design/illustrations/dreamlike.jpg) | ![Flower, 100 px](design/illustrations/flower-blur-100.jpg) |
-| Diffuse | Heightmap | Multipoint |
-| ![Diffuse](design/illustrations/diffuse.jpg) | ![Heightmap](design/illustrations/heightmap.jpg) | ![Multipoint](design/illustrations/multipoint.jpg) |
+| Sky-inspired | Broad diagonal current; 3 curved planes + 2 light fields / 宽幅斜向色流，三条曲线与两个光场 | 125–155 px blur |
+| Dreamlike | Unequal offset light and shadow; 2 planes + 4 fields / 两个曲面与四个光场，错位安排亮部、阴影和透光区 | 120–165 px blur |
+| Flower-inspired | Magnified cropped petals; 4 translucent planes + 2 reflections / 放大的花瓣局部，四个半透明瓣面与两处反光 | Plane opacity / 瓣面不透明度 56–85%; blur 125–160 px |
+| Diffuse | 1 curve + 3 broad radial fields / 一条曲线与三个宽幅径向色场，降低局部对比 | 155–185 px blur |
+| Heightmap | Warped field with peaks, valleys and saddles; marching-squares contour extraction / 弯曲高度场叠加峰谷与鞍部，再提取等高区域 | 40 levels / 40 级; blur 24–38 px |
+| Multipoint | 11 Gaussian alpha-mask groups with separate color fills / 十一组高斯透明度遮罩，各有独立颜色层 | No extra blur / 额外 blur 为 0 |
+
+[Full recipes and controls / 完整配方与参数](references/figma-recipes.md) ·
+[Rebuild these six studies / 重建六张样例](scripts/blue_orange_studies.js) ·
+[Required native helper / 所需原生辅助函数](scripts/figma_native.js).
+The builder requires a connected Figma execution tool. Heightmap exposes
+`detail`, `warp`, `levels`, `blurMin` and `blurMax`; the recipe explains valid ranges.
+构建函数需要在已连接的 Figma 执行工具中运行。Heightmap 可分别调整次级起伏、
+坐标弯曲、等高层数和模糊值；有效范围与调用示例见配方。
 
 Four browser palette studies share one composition; these are separate from
 the native studies above. Exact colors, layer order and fade stops are in
@@ -29,8 +54,8 @@ the native studies above. Exact colors, layer order and fade stops are in
 | Monochromatic / 单色层次 | Analogous / 邻近暖色 |
 |---|---|
 | ![Warm monochrome](design/illustrations/palette-mono.svg) | ![Adjacent warm](design/illustrations/palette-adjacent.svg) |
-| Peach/olive / 杏桃橄榄 | Neutral/accent / 冷中性强调 |
-| ![Peach olive](design/illustrations/palette-contrast.svg) | ![Cool neutral](design/illustrations/palette-neutral.svg) |
+| Apricot/cobalt / 杏橙钴蓝 | Neutral/accent / 冷中性强调 |
+| ![Apricot cobalt](design/illustrations/palette-blue-orange.svg) | ![Cool neutral](design/illustrations/palette-neutral.svg) |
 
 ## English
 
@@ -58,7 +83,8 @@ measured productivity or business-outcome claim is made.
 #### How to use it
 
 1. Install the complete folder as `mesh-gradient-generation` in your agent's
-   skills directory. Keep `SKILL.md`, `references/` and `scripts/` together.
+   skills directory. Keep the complete folder, including `references/`,
+   `scripts/` and `design/` sample assets.
 2. Provide the intended use, dimensions/aspect ratio, a reference or brand colors,
    the area reserved for content, and the required editability/output format.
    If you have not chosen colors, ask for a few palette directions at the same
@@ -125,26 +151,31 @@ choices or provide permission to modify an unrelated file.
     --width 1200 --height 800 --output study.svg
   ```
 
+- `scripts/blue_orange_studies.js`: rebuilds the six current native studies
+  after `figma_native.js` is inlined. Uses caller-supplied clear x/y; has been
+  executed and visually inspected in live Figma. The compositions use 3:2. Optional `keys` selects individual studies; `heightmap` controls detail, warp, levels and blur.
 - `scripts/palette_studies.js`: four role-based palette previews and three
   size-aware layout recipes. `layoutSpec` converts short-side support radii to
   the native helper's per-axis units. New layout parity with live Figma is unverified.
 - `index.html`: the single illustrated Chinese guide with real Figma samples,
-  a 100/150/200 px blur comparison, four visible palette examples and recomposed
+  a Sky 100/150/200 px blur comparison, four visible palette examples and recomposed
   16:9 / 1:1 / 9:16 studies. Download the **whole repository** and open this file
   locally; it uses local images/scripts. GitHub's file view displays HTML source.
   The comparison does not sync edits to Figma.
 
-The six Figma recipes are documented methods, not six ready-made generator
-buttons. The package does not include image segmentation, a shader/reveal engine
+The six recipes include a native builder for the current blue/orange studies;
+this is a function library for a supported execution tool, not a standalone plugin. The package does not include image segmentation, a shader/reveal engine
 or automatic PPT creation. Native geometry, imported SVG and flattened bitmaps
-have different editing limits. Compare 100/150/200 px blur at a
-1536×1024 reference scale, then scale by the short side when resizing the canvas.
+have different editing limits. For broad light fields, compare 100/150/200 px at a 1536×1024 reference scale.
+The current Flower planes use 125–160 px blur and 56–85% opacity. Heightmap uses 40 extracted levels with 24–38 px blur and exposes detail/warp/level controls. Scale
+the selected radius by the short side when resizing the canvas.
 Recompose for a new aspect ratio. Mask-based masses have no extra blur by default.
 The legacy SVG `petal` sketch is not a visual target for Flower-inspired artwork.
 
 Recipes are grounded in inspected native artwork and recovered historical
-construction records. The bundled Figma helper passed mock checks and has not
-yet been executed against a live canvas. Validation details are in the guide.
+construction records. The six-study builder and its Gaussian-mask helper have now been executed
+in live Figma and their actual renders inspected. Browser layout specs still
+need live-target calibration. Validation details are in the guide.
 
 ## 中文
 
@@ -216,22 +247,22 @@ AGENTS.md 负责说明仓库怎么读、怎么维护；SKILL.md 负责执行制�
 节点 ID，便于后续定点改色和调整构图。它需要在支持的 Figma 执行工具中调用，
 不是双击就能运行的插件。
 
-SVG 脚本使用 Python 3 标准库生成四类原创示意；六类 Figma 效果则以制作配方
-提供，不代表已经有六个现成生成按钮。本包未实现自动做 PPT、图片分割或完整
+SVG 脚本使用 Python 3 标准库生成四类原创示意；新增蓝橙六图原生构建函数，
+可在支持的 Figma 执行工具中按指定位置重建。它是函数库，不是独立插件。Heightmap 已包含等高线提取，参数说明见配方。本包未实现自动做 PPT、图片分割或完整
 动画引擎。原生图层、导入 SVG 和位图的可编辑程度不同，需要分别说明。
 
-图解都在同一份 [index.html](index.html) 中：六类实际 Figma 样例、三档原生模糊
+图解都在同一份 [index.html](index.html) 中：六类实际 Figma 样例、Sky 三档原生模糊
 对照、四张配色示例和比较器，以及 16:9、1:1、9:16 的重排演示。请下载整个
 仓库再打开本页，保留图片和脚本目录；GitHub 文件页只显示 HTML 源码。
 页面里的修改不会自动同步到 Figma。
 
-曲线路线先比较 100、150、200 px，再按短边换算；换比例时需要重新安排色团
-和留白，不能直接拉伸。多点遮罩默认不额外模糊。新 `palette_studies.js` 提供
+宽幅光场可比较 100、150、200 px；本轮 Flower 的瓣面使用 125–160 px 模糊和 56–85% 不透明度；
+Heightmap 有 40 级等高区域，使用 24–38 px 模糊，并开放起伏、扭曲和层数参数。按短边换算具体值；换比例时重新安排色团和留白。多点遮罩默认不额外模糊。新 `palette_studies.js` 提供
 可复用配色与画幅参数；其中布局参数尚未与实时 Figma 渲染校准。旧 SVG 的
 `petal` 草图不作为 Flower 效果的视觉参考。
 
-制作方法已结合原生作品结构和恢复的历史操作记录核对。新 Figma 构建函数通过
-了模拟检查，尚未在真实画布中执行；具体验证状态保留在图解页中。
+制作方法已结合原生作品结构和恢复的历史操作记录核对。本轮六图构建函数和高斯遮罩函数已在
+真实 Figma 中执行并检查了渲染；浏览器画幅参数仍需目标工具校准。验证状态见图解。
 
 ## License / 许可
 

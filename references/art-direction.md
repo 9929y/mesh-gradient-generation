@@ -53,9 +53,9 @@ Example studies (not universal brand prescriptions):
   burnt orange #B7542E. Separate structure through lightness.
 - **Adjacent warm:** ivory #FFF4E7, gold #E6BE6C, peach #F6AD71,
   rose #C97C83. Keep one warm family dominant.
-- **Peach/olive contrast:** ivory #FFF4E7, peach #F6AD71, olive gold #B59B46,
-  olive #898418. Test how much olive survives overlap; “complementary” here is
-  an art-direction shorthand, not an assertion of exact opposite hue angles.
+- **Apricot/cobalt contrast:** cream #F8F1E8, apricot #F4B78B, blue #7398D1,
+  cobalt #3E64AC. Retain a warm pale area and control blue/orange overlap;
+  the label describes a visual direction, not exact opposite hue angles.
 - **Cool neutral/accent:** paper #F4F5F3, mist #D5DEDE, blue gray #91A9B4,
   blue #3F708E. Keep one darker mass or quiet dark text zone.
 
@@ -96,7 +96,7 @@ Start with these choices; add deeper parameters only when needed:
 - **Contrast / accent:** adjust light/dark separation and the accent's coverage.
 
 Name colors by role and layers by function. Return the base and mass color-node
-IDs from a connector workflow. A normal “make it peach/olive” edit changes those
+IDs from a connector workflow. A normal “make it apricot/blue” edit changes those
 fills, not the entire scene. Preserve the original until the replacement is
 reviewed. Avoid a new page and a new export for every tiny slider change.
 
@@ -105,7 +105,9 @@ For the **blurred vector route**, compare 100, 150 and 200 px at a reference
 This is a tuning bracket, not a minimum/maximum requirement. Prefer lower
 values when contour identity matters. Judge the actual render: broad blur
 can erase structure and color separation. The guide contains a real Figma
-Flower comparison. Other family-specific ranges are proposed starting points.
+Sky comparison. The current cropped Flower uses 125–160 px with 56–85%
+plane opacity; the 40-level Heightmap uses 24–38 px to retain smaller ridges. Compare their
+actual samples and tune opacity/blur separately. Other ranges are starting points.
 See [palettes-and-layout.md](palettes-and-layout.md) for formulas, the four
 rendered palette recipes and cross-ratio re-layout.
 
@@ -137,3 +139,20 @@ a poor color or contour transition.
 
 The composition, harmony and brand-judgment guidance above is a synthesized
 design framework, not an externally validated preference study.
+
+
+## Reference grammar before softness
+
+Judge the thumbnail first: where are the largest bright/dark regions, how much
+of the frame do they occupy, and what direction connects them? Match these
+relationships before grain. Sky may need one wide current; Dreamlike may need
+unequal offset lights and a shadow; Flower may need just a cropped magnified
+surface rather than recognizable flower anatomy. A method name is insufficient
+without a viewed reference. Do not invent a thin decorative loop because the
+label says “dreamlike,” or a radial rosette because it says “flower.”
+
+For Heightmap complexity, distinguish the number of levels from field structure.
+A repeated scaled outline stays one-centered even with many layers. Add genuine
+peaks, valleys, curved ridges and saddles, then inspect region splits/merges and
+the actual crop. Only then increase levels or soften transitions. Avoid adding
+high-frequency detail that disappears at the target display size.

@@ -24,8 +24,18 @@ Tool names, permissions and availability vary by client.
    execution tool, append the invocation, and return its result.
 5. Read the returned IDs and inspect the actual rendered composition. Adjust
    the specific masses by ID. Verify the export in the intended format.
+   If an effect-only edit leaves the preview pixels unchanged despite different
+   saved effect values, check a fresh export before judging it. A temporary
+   clone can isolate a stale node preview; place it in clear space, return its
+   IDs and remove it after export. Do not keep adding blur to compensate for
+   an unchanged cached render.
 
-Example invocation after loading the helper into the write tool:
+For the current six blue/orange examples, also inline
+`scripts/blue_orange_studies.js` and call `buildBlueOrangeStudies` with a clear
+x/y and proportional 3:2 dimensions. This builder was executed in live Figma;
+see `figma-recipes.md` for its exact shapes, counts and blur values.
+
+Example invocation after loading the radial helper into the write tool:
 
 ```js
 // Resolve this from a prior page read. Do not invent the page ID.

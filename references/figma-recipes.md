@@ -9,6 +9,77 @@ on a small thumbnail. Preserve relative scale and judge the actual render. Read
 [palettes-and-layout.md](palettes-and-layout.md) for adjustable blur ranges,
 ratio changes, concrete palette recipes and the new controlled comparison.
 
+## Current gallery: six blue / orange studies
+
+The current gallery was redrawn as native Figma artwork, all **1536×1024**.
+Palette anchors: warm white #FFF7EB, cream #F8F1E8, ice #DFE8F4, mist #B9CEE9,
+blue #7398D1, cobalt #3E64AC, navy #263C78, orange #EB7D45 and peach #F4B78B.
+The examples keep warm paper and apricot alongside blue; this is the current
+sample direction, not a universal restriction on the user's brand palette.
+
+| Study | Actual construction | Layer blur at reference size |
+|---|---|---|
+| Sky | 3 broad curved vectors + 2 radial fields | 125–155 px |
+| Dreamlike | 2 broad curved vectors + 4 offset radial fields | 120–165 px |
+| Flower | 4 magnified, cropped planes + 2 light fields | Planes 125/145/145/160 px, opacity 82/56/85/60%; light fields 125/135 px |
+| Diffuse | 1 curved vector + 3 broad radial fields | 155–185 px |
+| Heightmap | Warped multi-peak scalar field, marching-squares extraction, 40 Bézier levels | 24–38 px |
+| Multipoint | 11 isolated Gaussian alpha-mask groups, 49 stops each | Extra blur 0 |
+
+Inline `scripts/figma_native.js` followed by `scripts/blue_orange_studies.js`
+into a supported Figma execution tool, switch to the user-selected page and
+choose a clear x/y before calling:
+
+```js
+return buildBlueOrangeStudies(figma, {x:clearX, y:clearY, width:1536, height:1024});
+```
+
+The function is additive, returns every created ID, and has been executed in
+live Figma with the six actual renders inspected. It accepts proportional
+3:2 canvas sizes; it rejects other ratios so it does not silently stretch the
+petals. Use the layout guidance to recompose for another aspect ratio.
+These are designed original examples, not exact replays of the old artwork.
+The Heightmap implementation now samples a warped scalar field on a 112×80 grid,
+combining broad ridges, Gaussian hills/valleys and secondary undulations. It
+extracts 40 thresholds with marching squares, resolves ambiguous cells from
+the center value, joins closed loops, smooths to Bézier curves, and uses even-odd
+fills for holes. Distinct regions can split/merge between levels. This is a new
+algorithm; it does not claim to recover the historical source algorithm.
+
+The revision was compared with original visual references and earlier studies.
+Sky retains a broad diagonal warm current and open upper light. Dreamlike uses
+warm left light, upper blue shadow and a large offset pale region. Flower uses
+magnified cropped planes, a curved dark interval and warm transmitted light,
+with no central flower symbol. Geometry is newly designed in a blue/apricot
+palette, not a pixel reconstruction; original grain is not recreated.
+
+Flower plane opacity is 82/56/85/60%, with blur 125/145/145/160 px. Its upper
+warm-white and lower-left peach fields use fill alpha .75/.50 and blur
+125/135 px. Keep opacity, edge softness and plane thickness as separate edits.
+Multipoint retains a long blue sweep and narrow pale passages.
+
+Optional selection and Heightmap controls:
+
+```js
+return buildBlueOrangeStudies(figma, {
+  x: clearX, y: clearY, width: 1536, height: 1024,
+  keys: ['heightmap'],
+  heightmap: {detail: 1, warp: 1, levels: 40, blurMin: 24, blurMax: 38}
+});
+```
+
+`detail` weights the secondary undulations; `warp` weights coordinate bending
+(both 0–2). `levels` is an integer from 12–80. `blurMin/blurMax` are reference
+pixel radii at a 1024 short side (0–200, max >= min). Counts alone do not add
+structural complexity: first adjust the field, then levels and fusion.
+The result returns `contourTopology` with the closed-region count per height.
+Region counts cover the padded field; some regions can be outside the crop.
+These controls rebuild a study; they are not a two-way live editing UI.
+
+The current 100/150/200 comparison changes all five blur radii on temporary
+copies of the same blue/orange Sky. Geometry, fills and opacity stay fixed;
+those copies were removed after export. The final six editable studies remain.
+
 ## 1. Sky-inspired: a directional field
 
 **Observed:** representative artboards combine about 5–6 native layers:
@@ -54,16 +125,10 @@ when a shaped boundary is the defining feature. Keep literal flower anatomy
 only if it is part of the request.
 
 Tune path tangents, length/width, overlap, direction, opacity and edge blur.
-The main guide shows actual curved Flower renders, including a rich version
-with four curved vectors and one radial field. A controlled 100/150/200 px
-comparison was exported from temporary copies of that same 1536×1024 study;
-all five layer-blur radii changed together and no other parameters changed.
-The temporary copies were removed; the original is preserved. Lower blur
-retains more of the curled boundary in this example. See the labeled images
-in `index.html`, not the old radial `petal` SVG helper, for the Flower target.
-
-A separate Flower-inspired multipoint example has 18 Gaussian-mask groups and
-no layer blur. It produces a continuous field, not the same curved path topology.
+The current guide uses the four-plane magnified blue/apricot Flower described
+above. Preserve large cropped surfaces and the dark interval between them.
+Tune opacity and blur independently; the current planes use 125–160 px blur.
+Inspect the actual sample, not the legacy radial `petal` SVG sketch.
 
 ## 4. Diffuse: soften a composition, preserve its hierarchy
 
@@ -92,7 +157,9 @@ Use blur to join bands only as needed. Keep contour topology and tonal order
 coherent, otherwise the result becomes unrelated soft stripes.
 
 Tune field scale, contour spacing, number of levels, ramp contrast and blur.
-This package provides the method; it does not include a contour extractor.
+The current builder includes the scalar-field contour extractor described above.
+For more detail, change secondary field frequencies/amplitudes and warp before
+increasing the number of levels. Excessive blur can erase every smaller ridge.
 
 ## 6. Multipoint / layered radial: color-and-mask groups
 

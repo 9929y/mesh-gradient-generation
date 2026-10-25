@@ -111,10 +111,11 @@ transform and its separate color fill without changing the mask.
 
 For size, aspect ratio, palette sample recipes and blur, read
 [palettes-and-layout.md](references/palettes-and-layout.md). At a 1536×1024
-reference size, compare **100 / 150 / 200 px** for the blurred-vector route;
+reference size, compare **100 / 150 / 200 px** for broad light fields. The current soft
+Flower uses **125–160 px** and **56–85% plane opacity**; the 40-level Heightmap uses **24–38 px**;
 scale a chosen radius by min(width,height)/1024 when resizing the canvas.
 Changing export scale alone does not require changing the layer radius again.
-Use lower values when curved contours matter and higher ones for broad diffusion;
+Tune sample-specific values for edge fusion and contour identity; use broader diffusion only when it serves the composition;
 judge each layer rather than imposing one number. The Gaussian-mask method has
 no extra layer blur by default. For a different aspect ratio, recompose the
 centers and quiet zone, and define physical mass radii relative to the short
@@ -129,6 +130,12 @@ alone is not enough. The old radial `petal` SVG sketch is not the Flower target.
 For normal recoloring, edit the named color fills, preserve geometry, then
 inspect the composite. For layout, move/scale/rotate a whole mass group.
 Keep raster corrections off during substantial redesign.
+
+The current blue/orange gallery can be reconstructed with
+`scripts/blue_orange_studies.js`, inlined after `figma_native.js`; read the
+current construction table in `figma-recipes.md`. This six-study builder has
+been executed in live Figma and returns native artboard/layer IDs. Its paths
+use a 3:2 composition; recompose before adapting to a different ratio.
 
 Helpers:
 
@@ -150,7 +157,9 @@ Helpers:
 | Visible colored circles | Similar circular masses and isolated boundaries | Vary aspect/placement; overlap; use shaped vectors where contours matter |
 | Horizontal sunset bands | Centers aligned on rows | Change topology and direction, not just hue |
 | Texture covers everything | Grain too large or opaque | Lower amount; inspect at actual display size |
-| Petal looks like a flower icon | Perfect radial symmetry, hard outline | Break symmetry, vary lengths and soften selected boundaries |
+| Petal looks like a flower icon | Perfect radial symmetry, central rosette | Enlarge/crop planes; use a curved shadow and transmitted light if the reference calls for it |
+| Dreamlike looks ornamental | Thin closed highlight loop replaces broad light | Remove the outline and restore unequal offset light/shadow regions |
+| Heightmap stays simple despite many layers | Repeated scaled outline, no saddles | Change the height field and inspect splits/merges before increasing levels |
 | Export differs from preview | Different dimensions, color/filter handling or pipeline | Render both through the same pipeline; check actual exported pixels |
 
 ## Add motion only when requested

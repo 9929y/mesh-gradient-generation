@@ -11,7 +11,7 @@ as files that contain editable Figma nodes.
 |---|---|---|
 | mono | #FFF4E7 / #FDDAAA / #F6AD71 / #B7542E | Warm tonal identity; maintain light/dark separation |
 | adjacent | #FFF4E7 / #E6BE6C / #F6AD71 / #C97C83 | Gentle warm variation; keep one hue family dominant |
-| contrast | #FFF4E7 / #F6AD71 / #B59B46 / #898418 | Peach/olive tension; broad overlap can dull it |
+| contrast | #F8F1E8 / #F4B78B / #7398D1 / #3E64AC | Apricot/cobalt tension; retain warm space and avoid muddy broad overlap |
 | neutral | #F4F5F3 / #D5DEDE / #91A9B4 / #3F708E | Quiet content settings; protect the actual text area |
 
 These are original browser studies. `scripts/palette_studies.js` supplies
@@ -83,25 +83,33 @@ are separate inspected artwork.
 
 ## Adjustable blur
 
+The current Flower planes use 125–160 px blur with 56–85% opacity; current
+Heightmap layers use 24–38 px across 40 extracted levels. Flower needs broad
+edge fusion; Heightmap needs enough local definition to retain smaller ridges.
+Tune supporting light fields separately.
+Read the current construction table in `figma-recipes.md` for exact per-family
+settings and the executable six-study builder.
+
 The 200 px radius in historical 1536×1024 studies was an observed setting,
-not a mandatory default. A new controlled comparison on the rich curved
-Flower study changed all five layer-blur radii to 100 / 150 / 200 px on
+not a mandatory default. A new controlled comparison on the blue/orange
+Sky study changed all five layer-blur radii to 100 / 150 / 200 px on
 temporary copies. Geometry, fills, ordering and opacity stayed fixed. The
 three source PNGs were actually exported from Figma; copies were then removed.
 The public guide uses full-resolution quality-95 JPEG encodings for smaller
 page downloads. They are viewing samples, not lossless pixel-comparison targets.
 
-Use `blur = b * min(width,height) / 1024`, choosing b from a comparison range:
+Use `blur = b * min(width,height) / 1024`, choosing b for the intended structure, not imposing one interval:
 
 | Intended treatment | Suggested b at 1536×1024 | Inspect |
 |---|---|---|
-| Shaped Flower / visible Heightmap contour | 100–150 px | Contour identity vs harsh boundary |
+| Translucent Flower planes | 125–160 px in the current sample | Tune 56–85% opacity independently of edge fusion |
+| Soft Heightmap contours | 24–38 px in the current 40-level sample | Preserve splits, saddles and smaller ridges while joining levels |
 | Broad Sky / Dreamlike | 120–180 px | Direction and pale passage vs uniform haze |
 | Diffuse field | 160–200 px | Fusion vs lost tonal hierarchy |
 | Gaussian alpha-mask groups | Extra blur 0 by default | Support size, overlap and falloff instead |
 
-Only the Flower three-value comparison was newly tested. Other ranges are
-art-direction starting points, not established optima. Values outside these
+The exact current gallery values and Sky comparison have been rendered in
+Figma. Other proposed ranges are starting points, not established optima. Values outside these
 ranges may fit a request; different layers may need different radii.
 At a 1080 px short side, b=100/150/200 gives about 105/158/211 px. Avoid
 rounding every value back to 200. Blur does not fix the wrong palette,
