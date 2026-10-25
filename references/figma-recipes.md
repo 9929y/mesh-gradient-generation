@@ -5,7 +5,9 @@ Observed structure is evidence; explanations of the visual role are design
 interpretations. The private source file and original reference images are not
 redistributed. Counts and blur radii below describe inspected examples, not
 mandatory defaults. A 200 px blur at 1536×1024 is very different from 200 px
-on a small thumbnail. Preserve relative scale and judge the actual render.
+on a small thumbnail. Preserve relative scale and judge the actual render. Read
+[palettes-and-layout.md](palettes-and-layout.md) for adjustable blur ranges,
+ratio changes, concrete palette recipes and the new controlled comparison.
 
 ## 1. Sky-inspired: a directional field
 
@@ -52,8 +54,16 @@ when a shaped boundary is the defining feature. Keep literal flower anatomy
 only if it is part of the request.
 
 Tune path tangents, length/width, overlap, direction, opacity and edge blur.
-The included SVG petal helper is a separate schematic approximation, not an
-exact replay of the inspected vector paths.
+The main guide shows actual curved Flower renders, including a rich version
+with four curved vectors and one radial field. A controlled 100/150/200 px
+comparison was exported from temporary copies of that same 1536×1024 study;
+all five layer-blur radii changed together and no other parameters changed.
+The temporary copies were removed; the original is preserved. Lower blur
+retains more of the curled boundary in this example. See the labeled images
+in `index.html`, not the old radial `petal` SVG helper, for the Flower target.
+
+A separate Flower-inspired multipoint example has 18 Gaussian-mask groups and
+no layer blur. It produces a continuous field, not the same curved path topology.
 
 ## 4. Diffuse: soften a composition, preserve its hierarchy
 

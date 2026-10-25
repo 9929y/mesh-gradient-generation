@@ -4,11 +4,39 @@ A reusable agent skill for creating and refining mesh gradients for presentation
 websites and brand visuals. It combines art direction, palette selection and
 editable Figma workflows, with SVG and code-rendering alternatives.
 
-[English](#english) · [中文](#中文) · [Agent instructions](SKILL.md) · [Illustrated guide](index.html)
+[English](#english) · [中文](#中文) · [For agents](AGENTS.md) · [Illustrated guide](index.html)
+
+## Samples / 效果样例
+
+Actual original Figma studies, not uploaded reference images. Flower shows a
+controlled 100 px blur variant; the guide includes the same composition at
+150 and 200 px. The JPEGs are flattened previews; recipes describe editable construction.
+
+以下是原创 Figma 研究的实际导出。Flower 使用 100 px 受控变体；图解内有
+150 / 200 px 对照。JPEG 是预览图片，可编辑结构需按配方在设计工具里建立。
+
+| Sky-inspired | Dreamlike | Flower-inspired |
+|---|---|---|
+| ![Sky](design/illustrations/sky.jpg) | ![Dreamlike](design/illustrations/dreamlike.jpg) | ![Flower, 100 px](design/illustrations/flower-blur-100.jpg) |
+| Diffuse | Heightmap | Multipoint |
+| ![Diffuse](design/illustrations/diffuse.jpg) | ![Heightmap](design/illustrations/heightmap.jpg) | ![Multipoint](design/illustrations/multipoint.jpg) |
+
+Four browser palette studies share one composition; these are separate from
+the native studies above. Exact colors, layer order and fade stops are in
+[palette/layout recipes](references/palettes-and-layout.md).
+四张浏览器配色示例使用相同构图；具体颜色、叠层和渐隐参数见配方。
+
+| Monochromatic / 单色层次 | Analogous / 邻近暖色 |
+|---|---|
+| ![Warm monochrome](design/illustrations/palette-mono.svg) | ![Adjacent warm](design/illustrations/palette-adjacent.svg) |
+| Peach/olive / 杏桃橄榄 | Neutral/accent / 冷中性强调 |
+| ![Peach olive](design/illustrations/palette-contrast.svg) | ![Cool neutral](design/illustrations/palette-neutral.svg) |
 
 ## English
 
-### Purpose and practical value
+### For people
+
+#### Purpose and practical value
 
 Use this skill when a gradient needs to support a real design task: a presentation
 cover, a readable content-slide background, a website hero, a project thumbnail,
@@ -27,7 +55,7 @@ measured productivity or business-outcome claim is made.
 | Brand and campaign systems | Palette roles, recognizable shape grammar and controlled variations across assets |
 | Reference reconstruction | Native editable color masses, optional separately labeled raster detail, and comparison with the target |
 
-### How to use it
+#### How to use it
 
 1. Install the complete folder as `mesh-gradient-generation` in your agent's
    skills directory. Keep `SKILL.md`, `references/` and `scripts/` together.
@@ -60,15 +88,19 @@ Example request:
 > choose a direction, build editable layers in my Figma file, inspect the result,
 > and explain how to change its colors and softness.
 
-### How an agent should read this repository
+### For agents
 
-**Start with [SKILL.md](SKILL.md).** This README explains the purpose and setup;
-`SKILL.md` is the operational entry point. Read only the references needed for
-the current task:
+#### Read order and execution
+
+Working in the repository: read [AGENTS.md](AGENTS.md), then
+[SKILL.md](SKILL.md). Invoked through a skill loader: the client normally loads
+`SKILL.md` directly. `AGENTS.md` is a repository reading/maintenance guide;
+it does not replace the skill or connect to Figma. Read only what the task needs:
 
 | Task | Read next |
 |---|---|
 | Choose use case, palette, brand direction or simple editing controls | [Art direction](references/art-direction.md) |
+| Reuse sample colors, adapt aspect ratio or tune 100–200 px blur | [Palette and layout recipes](references/palettes-and-layout.md) |
 | Build Sky-inspired, Dreamlike, Flower-inspired, Diffuse, Heightmap or Multipoint artwork; reconstruct a reference | [Figma recipes](references/figma-recipes.md) |
 | Operate Figma, export SVG, or choose another rendering tool | [Tool adapters](references/adapters.md), plus the installed connector's current instructions |
 | Explore fluid, pigment, oil/brush or chromatic silhouette rendering | [Related effect recipes](references/effects.md) |
@@ -80,7 +112,7 @@ by default. Return the artifact/node link, editable controls, validation evidenc
 and relevant limitations. Repository instructions do not replace the user's
 choices or provide permission to modify an unrelated file.
 
-### Included tools and boundaries
+#### Included tools and boundaries
 
 - `scripts/figma_native.js`: `buildMesh(figma, spec)` creates isolated native
   Gaussian-mask groups with separate color fills and returns their node IDs.
@@ -89,19 +121,26 @@ choices or provide permission to modify an unrelated file.
   schematic studies. For example:
 
   ```sh
-  python3 scripts/render_svg.py --effect petal --seed 17 \
-    --width 1200 --height 800 --output petal-study.svg
+  python3 scripts/render_svg.py --effect atmospheric --seed 17 \
+    --width 1200 --height 800 --output study.svg
   ```
 
-- `index.html`: one illustrated Chinese guide with an interactive palette
-  comparison. Download the repository and open this file locally; GitHub's file
-  view displays HTML source. The comparison does not sync changes to Figma.
+- `scripts/palette_studies.js`: four role-based palette previews and three
+  size-aware layout recipes. `layoutSpec` converts short-side support radii to
+  the native helper's per-axis units. New layout parity with live Figma is unverified.
+- `index.html`: the single illustrated Chinese guide with real Figma samples,
+  a 100/150/200 px blur comparison, four visible palette examples and recomposed
+  16:9 / 1:1 / 9:16 studies. Download the **whole repository** and open this file
+  locally; it uses local images/scripts. GitHub's file view displays HTML source.
+  The comparison does not sync edits to Figma.
 
 The six Figma recipes are documented methods, not six ready-made generator
 buttons. The package does not include image segmentation, a shader/reveal engine
 or automatic PPT creation. Native geometry, imported SVG and flattened bitmaps
-have different editing limits. The 200 px blur setting is scale-specific and
-must not be added automatically to the mask-based route.
+have different editing limits. Compare 100/150/200 px blur at a
+1536×1024 reference scale, then scale by the short side when resizing the canvas.
+Recompose for a new aspect ratio. Mask-based masses have no extra blur by default.
+The legacy SVG `petal` sketch is not a visual target for Flower-inspired artwork.
 
 Recipes are grounded in inspected native artwork and recovered historical
 construction records. The bundled Figma helper passed mock checks and has not
@@ -109,7 +148,9 @@ yet been executed against a live canvas. Validation details are in the guide.
 
 ## 中文
 
-### 用途与价值
+### 给使用者
+
+#### 用途与价值
 
 当你需要给一份 PPT 做封面、给网页留出清楚的标题区域，或者让一组品牌视觉
 保持一致时，难点往往不只是“生成一个好看的渐变”。你还需要决定颜色怎么搭、
@@ -127,7 +168,7 @@ yet been executed against a live canvas. Validation details are in the guide.
 | 品牌和活动视觉 | 固定颜色角色与形状语言，在多个应用中做有控制的变化 |
 | 参考图复现 | 分开可编辑色场与可选的位图细节，并用实际导出结果核对差异 |
 
-### 用户怎么使用
+#### 安装与使用
 
 1. 将整个目录安装为 `mesh-gradient-generation`，保留内部结构。Codex 常用位置
    是 `~/.codex/skills/mesh-gradient-generation/`；安装命令见上面的英文部分。
@@ -147,14 +188,19 @@ yet been executed against a live canvas. Validation details are in the guide.
 > 等我选定方向后，在我提供的 Figma 文件里建立可编辑图层，回看实际效果，
 > 并说明我以后如何改色和调整柔和程度。
 
-### Agent 应该怎么读
+### 给 Agent
 
-**先读 [SKILL.md](SKILL.md)。** README 是给使用者看的介绍与安装说明，
-真正的执行入口是 `SKILL.md`。随后按任务读取参考文件：
+#### 阅读顺序与执行
+
+直接在仓库里工作的 Agent：先读 [AGENTS.md](AGENTS.md)，再读
+[SKILL.md](SKILL.md)。通过 Skill 加载器调用时，通常直接加载 `SKILL.md`。
+AGENTS.md 负责说明仓库怎么读、怎么维护；SKILL.md 负责执行制作流程。
+这两个文件都不会自动连接 Figma。随后按当前任务读取参考：
 
 | 当前要做什么 | 读取什么 |
 |---|---|
 | 判断用途、选择配色、考虑品牌审美和修改方式 | [art-direction.md](references/art-direction.md) |
+| 复用配色样例、调整画幅、选择模糊值 | [palettes-and-layout.md](references/palettes-and-layout.md) |
 | 制作六类 Figma 效果，或复现已有参考 | [figma-recipes.md](references/figma-recipes.md) |
 | 操作 Figma、导出 SVG、选择其他工具 | [adapters.md](references/adapters.md)，以及当前连接工具的说明 |
 | 研究流体、颜料、油彩笔触、彩色剪影等相关方向 | [effects.md](references/effects.md) |
@@ -164,7 +210,7 @@ yet been executed against a live canvas. Validation details are in the guide.
 当前任务用得上的脚本。交付时说明产物位置、可调参数、检查结果和实现限制。
 不要因为读到了仓库文件，就推定可以修改用户未指定的其他项目。
 
-### 已提供什么，还有哪些边界
+#### 已提供什么，还有哪些边界
 
 原生 Figma 函数会建立“独立色团组＋高斯柔化遮罩＋纯色 Fill”，并返回各层的
 节点 ID，便于后续定点改色和调整构图。它需要在支持的 Figma 执行工具中调用，
@@ -174,9 +220,15 @@ SVG 脚本使用 Python 3 标准库生成四类原创示意；六类 Figma 效�
 提供，不代表已经有六个现成生成按钮。本包未实现自动做 PPT、图片分割或完整
 动画引擎。原生图层、导入 SVG 和位图的可编辑程度不同，需要分别说明。
 
-图解和交互配色比较都在同一份 [index.html](index.html) 中。下载仓库后在浏览器
-打开即可；GitHub 文件页只显示 HTML 源码。页面中的改色不会自动同步到 Figma。
-200 px 模糊值有对应的画面尺寸和制作路线，不能给所有色团统一套用。
+图解都在同一份 [index.html](index.html) 中：六类实际 Figma 样例、三档原生模糊
+对照、四张配色示例和比较器，以及 16:9、1:1、9:16 的重排演示。请下载整个
+仓库再打开本页，保留图片和脚本目录；GitHub 文件页只显示 HTML 源码。
+页面里的修改不会自动同步到 Figma。
+
+曲线路线先比较 100、150、200 px，再按短边换算；换比例时需要重新安排色团
+和留白，不能直接拉伸。多点遮罩默认不额外模糊。新 `palette_studies.js` 提供
+可复用配色与画幅参数；其中布局参数尚未与实时 Figma 渲染校准。旧 SVG 的
+`petal` 草图不作为 Flower 效果的视觉参考。
 
 制作方法已结合原生作品结构和恢复的历史操作记录核对。新 Figma 构建函数通过
 了模拟检查，尚未在真实画布中执行；具体验证状态保留在图解页中。

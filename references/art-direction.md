@@ -100,10 +100,14 @@ IDs from a connector workflow. A normal “make it peach/olive” edit changes t
 fills, not the entire scene. Preserve the original until the replacement is
 reviewed. Avoid a new page and a new export for every tiny slider change.
 
-For the **blurred vector route**, the observed 200 px blur on 1536×1024 is a
-starting point tied to that scale. Scale by the shorter dimension, then inspect
-whether contours survive. Large blur consumes color separation and can spill
-at edges; use artboard clipping and adequate bleed deliberately.
+For the **blurred vector route**, compare 100, 150 and 200 px at a reference
+1536×1024 size, then scale by the shorter dimension if the canvas changes.
+This is a tuning bracket, not a minimum/maximum requirement. Prefer lower
+values when contour identity matters. Judge the actual render: broad blur
+can erase structure and color separation. The guide contains a real Figma
+Flower comparison. Other family-specific ranges are proposed starting points.
+See [palettes-and-layout.md](palettes-and-layout.md) for formulas, the four
+rendered palette recipes and cross-ratio re-layout.
 
 For the **mask-group route**, softness comes from the alpha falloff and support
 extent. Edit the color rectangle for hue, the entire group for placement, and

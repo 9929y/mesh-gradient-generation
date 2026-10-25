@@ -63,7 +63,8 @@ silently substitute a bitmap for requested editable layers.
 Use normalized coordinates with the origin at the top left. Specify:
 
 ```text
-effect: atmospheric | fluid | pigment | oil | silhouette | petal
+effect: sky-inspired | dreamlike | flower-inspired | diffuse | heightmap | multipoint
+optional browser study: atmospheric | fluid | pigment | oil | silhouette | petal
 canvas: width, height, opaque base or transparent
 palette: ordered colors with intended roles and rough area proportions
 regions: color, center(x,y), extent(rx,ry), direction, opacity, edge softness
@@ -108,11 +109,23 @@ fusion/softness and contrast. Keep per-layer controls available for refinement.
 Return `massNodes` from the native helper so later edits can target each group's
 transform and its separate color fill without changing the mask.
 
-The observed **200 px layer blur** belongs to the 1536×1024 curved-shape studies.
-For that method, 200 × min(width,height)/1024 is a scaling starting point;
-match actual appearance after resizing. The Gaussian-mask method creates its
-softness through alpha falloff and has no additional layer blur. Do not add
-200 px to it automatically or claim the two methods are visually identical.
+For size, aspect ratio, palette sample recipes and blur, read
+[palettes-and-layout.md](references/palettes-and-layout.md). At a 1536×1024
+reference size, compare **100 / 150 / 200 px** for the blurred-vector route;
+scale a chosen radius by min(width,height)/1024 when resizing the canvas.
+Changing export scale alone does not require changing the layer radius again.
+Use lower values when curved contours matter and higher ones for broad diffusion;
+judge each layer rather than imposing one number. The Gaussian-mask method has
+no extra layer blur by default. For a different aspect ratio, recompose the
+centers and quiet zone, and define physical mass radii relative to the short
+side; do not nonuniformly stretch or assume a centered crop will work.
+
+Use `scripts/palette_studies.js` for the exact four-pool browser palette examples
+and three recomposed Gaussian-mask layout specs. These are original sample
+recipes, not automatic replicas of the six Figma studies. Inspect a selected
+sample in `design/illustrations/` when matching its appearance; a method label
+alone is not enough. The old radial `petal` SVG sketch is not the Flower target.
+
 For normal recoloring, edit the named color fills, preserve geometry, then
 inspect the composite. For layout, move/scale/rotate a whole mass group.
 Keep raster corrections off during substantial redesign.

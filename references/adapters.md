@@ -45,6 +45,9 @@ return buildMesh(figma, {
 ```
 
 The helper creates an opaque base unless `base: null` is explicitly supplied.
+For changing size/ratio, see [palettes-and-layout.md](palettes-and-layout.md):
+keep physical radii relative to the short side, then convert to these per-axis units.
+
 Region `rx/ry` are normalized half-extents of the mask frame, not Gaussian
 standard deviations; most visible pigment sits well inside that frame.
 `angle` is clockwise degrees in the top-left coordinate system. The alpha
@@ -77,9 +80,9 @@ network calls, and refuses to overwrite an existing output unless `--force`
 is passed. Example:
 
 ```sh
-python3 scripts/render_svg.py --effect petal --seed 17 \
+python3 scripts/render_svg.py --effect atmospheric --seed 17 \
   --width 1200 --height 800 --palette '#f1d9c9,#e98273,#b3a3bd,#f5ca82' \
-  --output petal-study.svg
+  --output study.svg
 ```
 
 Use `--transparent` only when transparent delivery is wanted. Verify the alpha

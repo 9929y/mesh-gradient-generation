@@ -102,6 +102,11 @@ source-to-remapped color mix. Neither included helper extracts a silhouette.
 
 ## Flower / petal diffusion
 
+For the actual Figma Flower visual target, inspect the native sample images in
+`index.html` and use `figma-recipes.md`. The legacy radial `petal` helper below
+is only a schematic construction experiment and is not a faithful example of
+those soft folded planes.
+
 **Target:** asymmetric lobed/petal-like boundaries and translucent interior
 glow; botanical anatomy is optional.
 
