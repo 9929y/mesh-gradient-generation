@@ -1,9 +1,19 @@
 ---
-name: mesh-gradient-generation
-description: Generate and refine mesh gradients for presentations, web backgrounds and brand visuals, with palette selection and brand-design guidance. Use editable Figma layers or SVG/code routes for sky-inspired, dreamlike, flower-inspired, diffuse, heightmap and multipoint effects, including reference reconstruction.
+name: genai-mesh-gradient
+description: A research-informed GenAI visual-generation workflow. Translate user intent and design constraints into controllable mesh gradients; generate and refine mesh gradients for presentations, web backgrounds and brand visuals, with palette selection and brand-design guidance. Use editable Figma layers or SVG/code routes for sky-inspired, dreamlike, flower-inspired, diffuse, heightmap and multipoint effects, including reference reconstruction.
 ---
 
-# Mesh Gradient Generation
+# GenAI Mesh Gradient
+
+A research-informed agent skill for controllable visual generation, developed
+by Yanice Yang (research publications: Liuqingqing Yang). The workflow connects
+user input, explicit design constraints and feedback to editable visual output.
+Read the bilingual README for the two related papers and the precise connection.
+This package supplies agent instructions and procedural renderers; it does not
+implement or reproduce the papers' trained diffusion models. Do not present
+their reported metrics as results for this skill or infer sole invention from
+coauthorship. Use an external image-generation tool only when the task calls for
+model-generated pixels and label that output accurately.
 
 Turn a visual reference into an explicit recipe, render it in a suitable tool,
 inspect the result, and adjust the parameter responsible for the mismatch.

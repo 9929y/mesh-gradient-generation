@@ -1,8 +1,15 @@
-# Mesh Gradient Generation
+# GenAI Mesh Gradient
 
-A reusable agent skill for creating and refining mesh gradients for presentations,
-websites and brand visuals. It combines art direction, palette selection and
-editable Figma workflows, with SVG and code-rendering alternatives.
+**A research-informed agent skill for controllable visual generation.**
+
+Developed by Yanice Yang, **GenAI Mesh Gradient** helps AI agents translate user
+intent and design constraints into mesh-gradient visuals for presentations,
+websites and brands. It combines structured recipes, palette and composition
+control, editable Figma construction, SVG alternatives and output inspection.
+
+**从需求到可修改的渐变图。** 用可复用的 Skill，让 AI Agent 把用途、配色、构图和
+反馈变成具体制作步骤。GenAI 负责理解与编排，现有函数负责生成图形和可编辑图层。
+下方说明与相关论文的联系，以及当前实现范围。
 
 [English](#english) · [中文](#中文) · [For agents](AGENTS.md) · [Illustrated guide](index.html)
 
@@ -61,6 +68,48 @@ the native studies above. Exact colors, layer order and fade stops are in
 
 ### For people
 
+#### From generative UI research to a reusable visual-generation skill
+
+Developed by **Yanice Yang**, who publishes research as **Liuqingqing Yang**.
+Her coauthored work examines how generation can respond to user input, design
+rules and feedback. This project connects that research direction to a concrete
+design task: helping an AI agent produce and revise mesh-gradient visuals for
+slides, websites and brands.
+
+A request such as “make this softer and leave room for my title” is ambiguous.
+The skill turns it into explicit choices: a protected text area, color roles,
+region positions, opacity and edge softness. The agent selects a rendering
+route, inspects the result and changes the parameter responsible for the
+mismatch. Its practical contribution is this reusable workflow, together with
+editable construction recipes and small rendering helpers.
+
+| Research connection | How the skill applies the idea | Inspectable implementation |
+|---|---|---|
+| User input as a generation condition | Express purpose, palette, reference structure, size and editability in a compact recipe | [Recipe and route selection](SKILL.md) |
+| Design knowledge as a constraint | Protect content areas; control color roles, composition and scale; distinguish six construction families | [Art direction](references/art-direction.md) and [Figma recipes](references/figma-recipes.md) |
+| Feedback as part of refinement | Inspect actual output, diagnose a mismatch and adjust one relevant parameter; keep composition fixed for palette comparison | [Refinement workflow](SKILL.md#diagnose-instead-of-adding-more-blur) and [illustrated controls](index.html#direction) |
+| A usable result beyond a preview | Preserve editable color/mask groups and expose node IDs for later changes | [Native helper](scripts/figma_native.js) and [six-study builder](scripts/blue_orange_studies.js) |
+
+**Related research — public author records and papers:**
+
+- Yifei Duan, Liuqingqing Yang, Tong Zhang, Zhijun Song and Fenghua Shao.
+  [*Automated UI Interface Generation via Diffusion Models: Enhancing Personalization and Efficiency*](https://arxiv.org/abs/2503.20229)
+  (2025; public preprint submitted March 26). Discusses conditional inputs,
+  design optimization and feedback in UI generation.
+- Rui Liu, Liuqingqing Yang, Runsheng Zhang and Shixiao Wang.
+  [*Generative Modeling of Human-Computer Interfaces with Diffusion Processes and Conditional Control*](https://arxiv.org/abs/2601.06823)
+  (2026; public preprint submitted January 11). Discusses user intent, context
+  and task constraints in conditional interface generation.
+
+These are **connections between research ideas and the design workflow**.
+This repository implements agent instructions and procedural Figma/SVG helpers;
+it does not contain the papers' trained diffusion models, weights, training
+pipeline or experimental reproduction. An external image-generation tool can
+be selected when a task needs model-generated imagery, with its output labeled
+as pixels. The paper results do not measure this skill, and coauthorship does
+not establish sole invention of the papers' methods. Independent adoption and
+productivity gains have not been established for this package.
+
 #### Purpose and practical value
 
 Use this skill when a gradient needs to support a real design task: a presentation
@@ -82,7 +131,7 @@ measured productivity or business-outcome claim is made.
 
 #### How to use it
 
-1. Install the complete folder as `mesh-gradient-generation` in your agent's
+1. Install the complete folder as `genai-mesh-gradient` in your agent's
    skills directory. Keep the complete folder, including `references/`,
    `scripts/` and `design/` sample assets.
 2. Provide the intended use, dimensions/aspect ratio, a reference or brand colors,
@@ -98,9 +147,14 @@ measured productivity or business-outcome claim is made.
 For Codex, a typical installation is:
 
 ```sh
-git clone https://github.com/9929y/mesh-gradient-generation.git \
-  ~/.codex/skills/mesh-gradient-generation
+git clone https://github.com/9929y/genai-mesh-gradient.git \
+  ~/.codex/skills/genai-mesh-gradient
 ```
+
+Previously published as **Mesh Gradient Generation** (`mesh-gradient-generation`).
+For an existing installation, rename its folder to `genai-mesh-gradient`, replace
+its contents with this revision and update saved prompts. The old invocation is
+not an alias supplied by this package.
 
 Reload your client's skill list if needed. Other agents have their own loading
 conventions. Installing the files does not itself enable automatic invocation
@@ -108,7 +162,7 @@ in every client.
 
 Example request:
 
-> Use $mesh-gradient-generation to create a 16:9 presentation-cover gradient.
+> Use $genai-mesh-gradient to create a 16:9 presentation-cover gradient.
 > Compare monochromatic, analogous and restrained contrasting palettes using
 > the same composition. Keep the left third quiet for a dark title. After I
 > choose a direction, build editable layers in my Figma file, inspect the result,
@@ -181,13 +235,48 @@ need live-target calibration. Validation details are in the guide.
 
 ### 给使用者
 
+#### 从生成式界面研究，连接到大家能复用的视觉生成流程
+
+本项目由 **Yanice Yang** 开发，论文署名为 **Liuqingqing Yang**。
+她参与的生成式界面研究关注一个问题：怎样让生成结果回应用户输入、设计规则和反馈。
+这份 Skill 把这一研究方向连接到具体制作场景，让 AI Agent 帮助使用者生成和修改
+演示文稿、网页及品牌所需的网格渐变图。
+
+例如，“再柔和一点，左边留给标题”还不是工具能直接执行的配方。Agent 需要把它
+拆成文字安全区、颜色角色、色区位置、不透明度和边缘柔和程度，再选择工具制作。
+看到实际结果后，还要判断改哪个参数。这里的 GenAI 指生成式 AI；在本项目中，
+AI Agent 负责理解要求、组织制作步骤和调用工具。Skill 是可复用的操作说明与配方，
+脚本负责建立图层或生成 SVG。两者一起把笼统的视觉要求变成可以继续修改的作品。
+
+| 研究中的思路 | 在这个 Skill 里怎么使用 | 可以核对的实现 |
+|---|---|---|
+| 把用户输入作为生成条件 | 将用途、配色、参考结构、尺寸和可编辑要求写成配方 | [配方与工具选择](SKILL.md) |
+| 用设计知识约束结果 | 留出内容区域，控制颜色角色、构图和尺寸，区分六种制作结构 | [视觉判断](references/art-direction.md)与 [Figma 配方](references/figma-recipes.md) |
+| 根据反馈逐步修改 | 回看实际结果，找到主要差异，一次调整相关参数；比较配色时固定构图 | [问题诊断](SKILL.md#diagnose-instead-of-adding-more-blur)与[图解交互](index.html#direction) |
+| 让产物能被继续使用 | 分开颜色层和遮罩，返回节点 ID，便于后续定点调整 | [原生辅助函数](scripts/figma_native.js)与[六图构建函数](scripts/blue_orange_studies.js) |
+
+相关论文及公开作者记录：
+
+- [*Automated UI Interface Generation via Diffusion Models: Enhancing Personalization and Efficiency*](https://arxiv.org/abs/2503.20229)，
+  2025 年，Duan、Yang 等合著；公开预印本于 3 月 26 日提交。
+  论文讨论条件输入、设计优化和用户反馈。
+- [*Generative Modeling of Human-Computer Interfaces with Diffusion Processes and Conditional Control*](https://arxiv.org/abs/2601.06823)，
+  2026 年，Liu、Yang 等合著；公开预印本于 1 月 11 日提交。
+  论文讨论如何把用户意图、上下文和任务限制引入生成过程。
+
+**这里连接的是研究思路与制作流程。** 当前仓库实现了 Agent 指令、Figma 原生构建
+函数和 SVG 脚本，没有提供上述论文的扩散模型、训练权重、训练流程或实验复现。
+任务需要模型生成的图像时，可以调用外部生图工具，并说明交付的是像素图。
+论文中的实验结果不能当成本 Skill 的成绩；合著署名也不能推定为独自发明全部方法。
+本项目尚未建立独立采用规模或效率提升的证据。
+
 #### 用途与价值
 
 当你需要给一份 PPT 做封面、给网页留出清楚的标题区域，或者让一组品牌视觉
 保持一致时，难点往往不只是“生成一个好看的渐变”。你还需要决定颜色怎么搭、
 色块放在哪里、哪些地方应该留白，以及之后怎样方便地修改。
 
-**Mesh Gradient Generation** 把这些判断整理成 Agent 可以执行的流程：先确定
+**GenAI Mesh Gradient** 把这些判断整理成 Agent 可以执行的流程：先确定
 用途和视觉方向，再选择配色与构图，连接 Figma 或其他合适的工具制作，最后
 检查实际效果和可编辑范围。目标是减少重复设置、让修改更一致；目前没有对节省
 时间或商业效果做量化验证。
@@ -201,8 +290,12 @@ need live-target calibration. Validation details are in the guide.
 
 #### 安装与使用
 
-1. 将整个目录安装为 `mesh-gradient-generation`，保留内部结构。Codex 常用位置
-   是 `~/.codex/skills/mesh-gradient-generation/`；安装命令见上面的英文部分。
+原名为 **Mesh Gradient Generation**（`mesh-gradient-generation`）。已有安装需将
+目录改成 `genai-mesh-gradient`、更新为本版内容，再修改保存的调用示例并重新加载。
+本包没有实现旧调用名的自动别名。
+
+1. 将整个目录安装为 `genai-mesh-gradient`，保留内部结构。Codex 常用位置
+   是 `~/.codex/skills/genai-mesh-gradient/`；安装命令见上面的英文部分。
    其他 Agent 按各自的 Skill 加载方式使用。
 2. 告诉 Agent：用在哪里、画面比例或尺寸、参考图或品牌色、哪里放文字，以及
    是否需要可编辑图层。没选好颜色时，可以先比较单色、邻近色、克制撞色等方向。
@@ -214,7 +307,7 @@ need live-target calibration. Validation details are in the guide.
 
 可以直接这样提需求：
 
-> 使用 $mesh-gradient-generation，为 16:9 的演示文稿制作封面渐变。
+> 使用 $genai-mesh-gradient，为 16:9 的演示文稿制作封面渐变。
 > 在同一个构图上比较单色、邻近色和克制撞色三种配色，左侧三分之一留给深色标题。
 > 等我选定方向后，在我提供的 Figma 文件里建立可编辑图层，回看实际效果，
 > 并说明我以后如何改色和调整柔和程度。

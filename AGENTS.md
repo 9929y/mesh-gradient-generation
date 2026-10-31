@@ -19,7 +19,10 @@ Read selectively:
 
 When modifying the package:
 
-- Preserve the name **Mesh Gradient Generation** and invocation `mesh-gradient-generation`.
+- Preserve the name **GenAI Mesh Gradient** and invocation `genai-mesh-gradient`.
+- Keep the research connection grounded in the two public papers linked from README.
+  Distinguish agent orchestration and procedural rendering from trained diffusion
+  models; do not claim paper reproduction, sole invention or unmeasured impact.
 - Maintain the single `index.html`; keep English and Chinese README sections aligned.
 - Use the real Figma samples as visual targets. The old `petal` sketch is not a
   faithful Flower example. Label native exports, controlled variants and new
